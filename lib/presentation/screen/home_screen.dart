@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:minimal_weather_app/presentation/model/weather_model.dart';
 import 'package:minimal_weather_app/presentation/service/api_service.dart';
+import 'package:minimal_weather_app/presentation/widget/todays_weather.dart';
 
 class HomeScrren extends StatefulWidget {
   const HomeScrren({super.key});
@@ -24,13 +25,25 @@ class _HomeScrrenState extends State<HomeScrren> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               WeatherModel? weatherModel = snapshot.data;
+
+              return SizedBox(
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    TodaysWeather(
+                      weatherModel: weatherModel,
+                    ),
+
+                  ],
+                ),
+              );
             }
             if (snapshot.hasError) {
               return Center(
                 child: Text("error"),
               );
             }
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),

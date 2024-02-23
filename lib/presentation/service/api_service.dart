@@ -22,7 +22,9 @@ class ApiService {
 
 
     } catch (e) {
+      print(e.toString());
       throw e.toString();
     }
   }
+
 }

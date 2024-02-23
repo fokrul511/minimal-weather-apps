@@ -87,17 +87,17 @@ class Current {
   double? windKph;
   int? windDegree;
   String? windDir;
-  int? pressureMb;
+  double? pressureMb;
   double? pressureIn;
   double? precipMm;
-  int? precipIn;
+  double? precipIn;
   int? humidity;
   int? cloud;
   double? feelslikeC;
   double? feelslikeF;
-  int? visKm;
-  int? visMiles;
-  int? uv;
+  double? visKm;
+  double? visMiles;
+  double? uv;
   double? gustMph;
   double? gustKph;
 
@@ -280,16 +280,16 @@ class Day {
   double? maxwindKph;
   double? totalprecipMm;
   double? totalprecipIn;
-  int? totalsnowCm;
+  double? totalsnowCm;
   double? avgvisKm;
-  int? avgvisMiles;
+  double? avgvisMiles;
   int? avghumidity;
   int? dailyWillItRain;
   int? dailyChanceOfRain;
   int? dailyWillItSnow;
   int? dailyChanceOfSnow;
   Condition? condition;
-  int? uv;
+  double? uv;
 
   Day(
       {this.maxtempC,
@@ -422,11 +422,11 @@ class Hour {
   double? windKph;
   int? windDegree;
   String? windDir;
-  int? pressureMb;
+  double? pressureMb;
   double? pressureIn;
   double? precipMm;
   double? precipIn;
-  int? snowCm;
+  double? snowCm;
   int? humidity;
   int? cloud;
   double? feelslikeC;
@@ -442,10 +442,10 @@ class Hour {
   int? willItSnow;
   int? chanceOfSnow;
   double? visKm;
-  int? visMiles;
+  double? visMiles;
   double? gustMph;
   double? gustKph;
-  int? uv;
+  double? uv;
   double? shortRad;
   double? diffRad;
 

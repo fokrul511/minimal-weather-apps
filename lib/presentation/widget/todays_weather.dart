@@ -8,21 +8,35 @@ class TodaysWeather extends StatelessWidget {
 
   const TodaysWeather({super.key, this.weatherModel});
 
+  WeatherType getWeatherType(Current? current) {
+    if (current?.isDay == 1) {
+      if (current?.condition?.text == "Clear") {
+        return WeatherType.sunny;
+      }
+    } else {
+      if (current?.condition?.text == "Clear") {
+        return WeatherType.sunnyNight;
+      }
+    }
+    return WeatherType.thunder;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         WeatherBg(
-            weatherType: WeatherType.heavyRainy,
-            width: double.infinity,
-            height: 300),
+          weatherType: getWeatherType(weatherModel?.current),
+          width: MediaQuery.of(context).size.width,
+          height: 320,
+        ),
         SizedBox(
           width: double.infinity,
-          height: 300,
+          height: 320,
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white10),
@@ -30,7 +44,7 @@ class TodaysWeather extends StatelessWidget {
                   children: [
                     Text(
                       weatherModel?.location?.country ?? "",
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -53,10 +67,11 @@ class TodaysWeather extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white10,
                         shape: BoxShape.circle,
                       ),
@@ -65,12 +80,155 @@ class TodaysWeather extends StatelessWidget {
                             "https:${weatherModel?.current?.condition?.icon ?? ""}"),
                       ),
                     ),
-                    Text(
-                      "${weatherModel?.current?.tempC?.round().toString() ?? ""}⁰",
-                      style: TextStyle(
-                        fontSize: 80,
-                        color: Colors.yellow,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              weatherModel?.current?.tempC
+                                      ?.round()
+                                      .toString() ??
+                                  "",
+                              style: const TextStyle(
+                                fontSize: 70,
+                                color: Colors.yellow,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            const Text(
+                              "0",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.yellow,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          weatherModel?.current?.condition?.text.toString() ??
+                              "",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Container(
+                margin: const EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Colors.white10,
+                    borderRadius: BorderRadius.circular(30)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            const Text(
+                              "Feels Like",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              weatherModel?.current?.feelslikeC
+                                      ?.round()
+                                      .toString() ??
+                                  "",
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text(
+                              "Wind",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              "${weatherModel?.current?.windKph?.round()} km/h",
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            const Text(
+                              "humidity",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              "${weatherModel?.current?.humidity?.round().toString() ?? ""}%",
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            const Text(
+                              "Visibility",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              "${weatherModel?.current?.visKm?.round()} km",
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
